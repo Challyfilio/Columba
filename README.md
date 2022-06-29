@@ -1,4 +1,4 @@
-# Aircraft Classification
+# Aircraft Classification ✈️
 
 ---
 使用ResNet进行迁移学习
