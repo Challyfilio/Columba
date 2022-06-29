@@ -44,7 +44,7 @@ bash train.sh resnet50 aircraft 0 20
 
 ## 相关文件下载
 - 数据集
-  - [数据集](https://pan.baidu.com/s/1NxEcynlSSs4VAImesmXMpg) 提取码：3721
+  - [dataset](https://pan.baidu.com/s/1NxEcynlSSs4VAImesmXMpg) 提取码：3721
 - output 训练结果
   - [output](https://pan.baidu.com/s/1ZzMoJtdEcHghRXevhQEhdg) 提取码：3721
 - ResNet预训练模型
