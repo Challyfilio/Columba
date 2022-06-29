@@ -36,7 +36,8 @@ bash eval.sh [NET] [DS] [OTL] [EPOCH]
 - DS    # 数据集 [aircraft , aircraft_similar]
 - OTL   # 是否只训练最后的线性层 [0:False , 1:True]
 - EPOCH # epochs
-example:
+
+Example:
 ```
 bash train.sh resnet50 aircraft 0 20
 ```
