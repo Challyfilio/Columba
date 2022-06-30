@@ -27,6 +27,7 @@ if __name__ == '__main__':
     parser.add_argument("--output_dir", type=str, default="")
     parser.add_argument("--net", type=str, default="resnet50")
     parser.add_argument("--dataset", type=str, default="aircraft")
+    parser.add_argument("--use_pretrain_model", type=int, default=1)
     parser.add_argument("--only_train_linear", type=int, default=0)
     parser.add_argument("--epochs", type=int, default=20)
     parser.add_argument("--only_eval", type=bool, default=False)

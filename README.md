@@ -1,6 +1,5 @@
 # Aircraft Classification
 
----
 使用ResNet进行迁移学习
 
 ## 目录结构及文件说明
@@ -30,17 +29,18 @@
 ## How to Run
 运行脚本在`scripts/`目录里，在`scripts/`目录下运行
 ```
-bash train.sh [NET] [DS] [OTL] [EPOCH]
-bash eval.sh [NET] [DS] [OTL] [EPOCH]
+bash train.sh [NET] [DS] [UPT] [OTL] [EPOCH]
+bash eval.sh [NET] [DS] [UPT] [OTL] [EPOCH]
 ```
-- NET   # 主干网络 [resnet50 , resnet18]
-- DS    # 数据集 [aircraft , aircraft_similar]
-- OTL   # 是否只训练最后的线性层 [0:False , 1:True]
-- EPOCH # epochs
+- NET    # 主干网络 [resnet50 , resnet18]
+- DS     # 数据集 [aircraft , aircraft_similar]
+- UPT    # 是否使用预训练权重 [0:False , 1:True]
+- OTL    # 是否只训练最后的线性层 [0:False , 1:True]
+- EPOCH  # epochs
 
 Example:
 ```
-bash train.sh resnet50 aircraft 0 20
+bash train.sh resnet50 aircraft 1 0 20
 ```
 
 ## 相关文件下载

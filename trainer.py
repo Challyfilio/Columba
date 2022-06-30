@@ -60,15 +60,17 @@ def load_net(args):
     use_cuda = torch.cuda.is_available()
 
     # 当GPU可用时
-    device = 'cuda:2' if use_cuda else 'cpu'
+    device = 'cuda:3' if use_cuda else 'cpu'
 
     if args.net == 'resnet18':
         # 加载resnet 加载预训练权重
         net = models.resnet18(pretrained=False)
-        net.load_state_dict(torch.load('pretrain_model/resnet18-5c106cde.pth'))
+        if args.use_pretrain_model == 1:
+            net.load_state_dict(torch.load('pretrain_model/resnet18-5c106cde.pth'))
     elif args.net == 'resnet50':
         net = models.resnet50(pretrained=False)
-        net.load_state_dict(torch.load('pretrain_model/resnet50-19c8e357.pth'))
+        if args.use_pretrain_model == 1:
+            net.load_state_dict(torch.load('pretrain_model/resnet50-19c8e357.pth'))
     else:
         print('net error')
         exit()
@@ -92,7 +94,8 @@ def train(args):
     net, device = load_net(args)
 
     criterion = nn.CrossEntropyLoss()  # Loss
-    optimizer = optim.SGD(net.parameters(), lr=0.0001, momentum=0.9)  # 优化器
+    # optimizer = optim.SGD(net.parameters(), lr=0.0001, momentum=0.9)  # 优化器
+    optimizer = optim.Adam(net.parameters(), lr=0.0001)
     record = train_net(args, net, train_loader, val_loader, criterion, optimizer, device)
 
     curve_draw(args, record)
