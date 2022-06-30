@@ -1,4 +1,4 @@
-# Aircraft Classification
+# Aircraft Classification ✈️
 
 使用ResNet进行迁移学习
 
@@ -32,18 +32,12 @@
 bash train.sh [NET] [DS] [UPT] [OTL] [EPOCH]
 bash eval.sh [NET] [DS] [UPT] [OTL] [EPOCH]
 ```
-<<<<<<< HEAD
+
 - NET    # 主干网络 [resnet50 , resnet18]
 - DS     # 数据集 [aircraft , aircraft_similar]
 - UPT    # 是否使用预训练权重 [0:False , 1:True]
 - OTL    # 是否只训练最后的线性层 [0:False , 1:True]
 - EPOCH  # epochs
-=======
-- NET   # 主干网络 [resnet50 , resnet18]
-- DS    # 数据集 [aircraft , aircraft_similar]
-- OTL   # 是否只训练最后的线性层 [0:False , 1:True]
-- EPOCH # epochs
->>>>>>> cc13c626b2ff7da91323d7ce68208268443bb285
 
 Example:
 ```
