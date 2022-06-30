@@ -55,3 +55,4 @@ bash train.sh resnet50 aircraft 1 0 20
   - [ResNet50](https://download.pytorch.org/models/resnet50-19c8e357.pth)
   - [ResNet101](https://download.pytorch.org/models/resnet101-5d3b4d8f.pth)
   - [ResNet152](https://download.pytorch.org/models/resnet152-b121ed2d.pth)
+
