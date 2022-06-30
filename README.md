@@ -32,11 +32,18 @@
 bash train.sh [NET] [DS] [UPT] [OTL] [EPOCH]
 bash eval.sh [NET] [DS] [UPT] [OTL] [EPOCH]
 ```
+<<<<<<< HEAD
 - NET    # 主干网络 [resnet50 , resnet18]
 - DS     # 数据集 [aircraft , aircraft_similar]
 - UPT    # 是否使用预训练权重 [0:False , 1:True]
 - OTL    # 是否只训练最后的线性层 [0:False , 1:True]
 - EPOCH  # epochs
+=======
+- NET   # 主干网络 [resnet50 , resnet18]
+- DS    # 数据集 [aircraft , aircraft_similar]
+- OTL   # 是否只训练最后的线性层 [0:False , 1:True]
+- EPOCH # epochs
+>>>>>>> cc13c626b2ff7da91323d7ce68208268443bb285
 
 Example:
 ```
@@ -45,7 +52,7 @@ bash train.sh resnet50 aircraft 1 0 20
 
 ## 相关文件下载
 - 数据集
-  - [数据集](https://pan.baidu.com/s/1NxEcynlSSs4VAImesmXMpg) 提取码：3721
+  - [dataset](https://pan.baidu.com/s/1NxEcynlSSs4VAImesmXMpg) 提取码：3721
 - output 训练结果
   - [output](https://pan.baidu.com/s/1ZzMoJtdEcHghRXevhQEhdg) 提取码：3721
 - ResNet预训练模型
