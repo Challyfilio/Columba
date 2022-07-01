@@ -11,7 +11,7 @@ def image_show(args, data_loader, class_name, count=1):
     plt.clf()
     plt.figure(figsize=(12, 8))
     for i in images:
-        plt.subplot(4, 8, count)
+        plt.subplot(5, 8, count)
         picture_show = np.transpose(i.numpy(), (1, 2, 0))
         mean = np.array([0.485, 0.456, 0.406])
         std = np.array([0.229, 0.224, 0.225])
@@ -30,12 +30,15 @@ def image_show(args, data_loader, class_name, count=1):
 def curve_draw(args, record):
     sns.set_theme(style="whitegrid")
     epoch = [record[0] for record in record]
-    loss = [record[1] for record in record]
-    acc = [record[2] for record in record]
+    train_loss = [record[1] for record in record]
+    val_loss = [record[2] for record in record]
+    train_acc = [record[3] for record in record]
+    val_acc = [record[4] for record in record]
     plt.clf()
     plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
-    plt.plot(epoch, acc, label='acc')
-    plt.plot(epoch, loss, label='loss')
+    plt.plot(epoch, val_acc, label='acc')
+    plt.plot(epoch, train_loss, label='train_loss')
+    plt.plot(epoch, val_loss, label='val_loss')
     plt.xlabel('Epoch')
     plt.legend()
     plt.show()
@@ -63,7 +66,7 @@ def val_and_visualize(args, net, val_loader, class_name, device):
     # 可视化模型预测
     plt.clf()
     plt.figure(figsize=(12, 8))
-    for i in range(0, 32):
+    for i in range(0, 40):
         plt.subplot(5, 8, i + 1)
         color = 'blue' if preds[i] == labels[i] else 'red'
         plt.title(class_name[preds[i]], color=color)
