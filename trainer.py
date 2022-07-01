@@ -100,8 +100,8 @@ def train(args):
 
     criterion = nn.CrossEntropyLoss()  # Loss
     base_lr = 0.0001
-    optimizer = optim.SGD(net.parameters(), lr=base_lr, momentum=0.9)  # 优化器
-    # optimizer = optim.Adam(net.parameters(), lr=base_lr)
+    # optimizer = optim.SGD(net.parameters(), lr=base_lr, momentum=0.9)  # 优化器
+    optimizer = optim.Adam(net.parameters(), lr=base_lr)
     train_net(args, net, train_loader, val_loader, criterion, base_lr, optimizer, device)
 
     val_and_visualize(args, net, val_loader, class_name, device)
