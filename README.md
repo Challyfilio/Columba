@@ -16,7 +16,8 @@
 ├─pretrain_model        # 存放ResNet的预训练模型（ResNet18，ResNet50）
 ├─scripts               # 训练，测试脚本
 │   ├─train.sh
-│   └─eval.sh
+│   ├─eval.sh
+│   └─eval_all.sh
 ├─utils                 # 工具类：日志，画图，训练
 │   ├─__init__.py
 │   ├─logger.py
@@ -42,6 +43,11 @@ bash eval.sh [NET] [DS] [UPT] [OTL] [EPOCH]
 Example:
 ```
 bash train.sh resnet50 aircraft 1 0 20
+```
+
+验证所有模型(需下载output文件夹放在对应位置):
+```
+bash eval_all.sh
 ```
 
 ## 相关文件下载
