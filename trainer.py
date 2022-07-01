@@ -49,7 +49,7 @@ def create_dataloader(args):
     val_dataset = create_dataset(val_data_dir, training=False)
 
     # 创建数据加载器
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=40, shuffle=True, num_workers=8)
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=8)
     val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=334, shuffle=True, num_workers=8)
 
     return train_loader, val_loader, class_name
@@ -60,7 +60,7 @@ def load_net(args):
     use_cuda = torch.cuda.is_available()
 
     # 当GPU可用时
-    device = 'cuda:3' if use_cuda else 'cpu'
+    device = 'cuda' if use_cuda else 'cpu'
 
     if args.net == 'resnet18':
         # 加载resnet 加载预训练权重
