@@ -5,7 +5,7 @@ import torch.optim as optim
 from torchvision import datasets, models, transforms
 
 from utils.train import train_net
-from utils.tools import image_show, curve_draw, val_and_visualize
+from utils.tools import image_show, val_and_visualize
 
 
 def create_dataset(data_dir, training=True):
@@ -49,8 +49,13 @@ def create_dataloader(args):
     val_dataset = create_dataset(val_data_dir, training=False)
 
     # 创建数据加载器
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=8)
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=334, shuffle=True, num_workers=8)
+    train_loader, val_loader = None, None
+
+    if args.only_eval:
+        val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=334, shuffle=True, num_workers=8)
+    else:
+        train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=40, shuffle=True, num_workers=8)
+        val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=40, shuffle=True, num_workers=8)
 
     return train_loader, val_loader, class_name
 
@@ -94,16 +99,15 @@ def train(args):
     net, device = load_net(args)
 
     criterion = nn.CrossEntropyLoss()  # Loss
-    # optimizer = optim.SGD(net.parameters(), lr=0.0001, momentum=0.9)  # 优化器
-    optimizer = optim.Adam(net.parameters(), lr=0.0001)
-    record = train_net(args, net, train_loader, val_loader, criterion, optimizer, device)
-
-    curve_draw(args, record)
+    base_lr = 0.0001
+    optimizer = optim.SGD(net.parameters(), lr=base_lr, momentum=0.9)  # 优化器
+    # optimizer = optim.Adam(net.parameters(), lr=base_lr)
+    train_net(args, net, train_loader, val_loader, criterion, base_lr, optimizer, device)
 
     val_and_visualize(args, net, val_loader, class_name, device)
 
 
 def test(args):
-    train_loader, val_loader, class_name = create_dataloader(args)
+    _, val_loader, class_name = create_dataloader(args)
     net, device = load_net(args)
     val_and_visualize(args, net, val_loader, class_name, device)
