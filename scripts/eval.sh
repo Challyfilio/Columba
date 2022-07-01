@@ -9,7 +9,7 @@ UPT=$3   # use_pretrain_model [0:False,1:True]
 OTL=$4   # only_train_linear [0:False,1:True]
 EPOCH=$5 # epochs
 
-DIR=output/${DS}/${NET}/${EPOCH}/pretrain_model_${UPT}/train_linear_${OTL}
+DIR=output/${DS}/${NET}/epochs_${EPOCH}/use_pretrain_model_${UPT}/only_train_linear_${OTL}
 
 python main.py \
   --output_dir ${DIR} \
