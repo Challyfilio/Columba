@@ -1,6 +1,16 @@
 import torch
 import numpy as np
 
+from utils.tools import curve_draw
+
+
+def adjust_lr(base_lr, optimizer, epoch):
+    step = [10, 20, 30, 40, 50, 60]
+    lr = base_lr * (0.1 ** np.sum(epoch >= np.array(step)))
+    for params_group in optimizer.param_groups:
+        params_group['lr'] = lr
+    return lr
+
 
 def rightness(predictions, labels):
     pred = torch.max(predictions.data, 1)[1]
@@ -8,13 +18,14 @@ def rightness(predictions, labels):
     return rights, len(labels)  # 返回正确的数量和这一次一共比较了多少元素
 
 
-def train_net(args, net, train_loader, val_loader, criterion, optimizer, device):
+def train_net(args, net, train_loader, val_loader, criterion, base_lr, optimizer, device):
     record = []  # 记录准确率等数值的容器
     net.train(True)
     best_r = 0.0
     for epoch in range(args.epochs):
         train_rights = []  # 记录训练数据集准确率的容器
         train_losses = []
+        # adjust_lr(base_lr, optimizer, epoch)
         for batch_idx, (data, target) in enumerate(train_loader):  # 针对容器中的每一个批进行循环
             data, target = data.clone().detach().requires_grad_(False), target.clone().detach()
             data, target = data.to(device), target.to(device)
@@ -34,13 +45,17 @@ def train_net(args, net, train_loader, val_loader, criterion, optimizer, device)
         # 在测试集上分批运行，并计算总的正确率
         net.eval()
         vals = []
+        val_losses = []
         # 对测试数据集进行循环
         for data, target in val_loader:
             data, target = data.to(device), target.to(device)
             data, target = data.clone().detach().requires_grad_(True), target.clone().detach()
             output = net(data)
+            val_loss = criterion(output, target)
             val = rightness(output, target)  # 获得正确样本数以及总样本数
             vals.append(val)
+            val_loss = val_loss.cpu()
+            val_losses.append(val_loss.data.numpy())
 
         # 计算准确率
         val_r = (sum([tup[0] for tup in vals]), sum([tup[1] for tup in vals]))
@@ -61,5 +76,7 @@ def train_net(args, net, train_loader, val_loader, criterion, optimizer, device)
         )
         )
         record.append(
-            [epoch, np.mean(train_losses), train_r[0].cpu().numpy() / train_r[1], val_r[0].cpu().numpy() / val_r[1]])
-    return record
+            [epoch, np.mean(train_losses), np.mean(val_losses), train_r[0].cpu().numpy() / train_r[1],
+             val_r[0].cpu().numpy() / val_r[1]])
+
+    curve_draw(args, record)
