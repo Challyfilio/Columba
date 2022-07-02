@@ -5,6 +5,14 @@ from utils.logger import setup_logger
 
 
 def main(args):
+    if args.use_pretrain_model == 0:
+        args.use_pretrain_model = False
+    elif args.use_pretrain_model == 1:
+        args.use_pretrain_model = True
+    else:
+        print('error')
+        exit()
+
     if args.only_train_linear == 0:
         args.only_train_linear = False
     elif args.only_train_linear == 1:
@@ -12,6 +20,7 @@ def main(args):
     else:
         print('error')
         exit()
+
     print(args)
     setup_logger(args.output_dir)
     if args.only_eval:
