@@ -70,11 +70,11 @@ def load_net(args):
     if args.net == 'resnet18':
         # 加载resnet 加载预训练权重
         net = models.resnet18(pretrained=False)
-        if args.use_pretrain_model == 1:
+        if args.use_pretrain_model:
             net.load_state_dict(torch.load('pretrain_model/resnet18-5c106cde.pth'))
     elif args.net == 'resnet50':
         net = models.resnet50(pretrained=False)
-        if args.use_pretrain_model == 1:
+        if args.use_pretrain_model:
             net.load_state_dict(torch.load('pretrain_model/resnet50-19c8e357.pth'))
     else:
         print('net error')
